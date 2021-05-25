@@ -19,7 +19,12 @@ export class AlgorTwo {
     }
 
     facialNeighbors(faceId: number | string){
-
+        /** this method provides the major functionality of algorithm #2 
+         * 1. searches the vertex indices for each face for intersection 
+         * bwtn the given face by Id.  
+         * 2. if there is an intersection of 2+ vertices then it is a 
+         * neighboring face and recorded.
+        */
         let myFace = this.data.intPolygons[faceId];
         let faces = this.data.intPolygons;
         let temp: any = [];

@@ -1,10 +1,32 @@
 # HighArc Code Challenge
 
-1. To run the html script, type the following in the given order in your terminal: 
-    a. gulp
-    b. npm start
-    c. go to (http://localhost:3000/higharc)
+* Install node.js in your local machine. There are differente ways install node depending of your Operating System:
+	* Windows, Linux or Mac: [node.js](https://nodejs.org/es/download/)
+	* For brew experts: ``` brew install node ```
+	* For linux users: ``` sudo apt-get install nodejs ```
+* 
+1. How to pull from REPO:
+    * Once you have node.js correctly installed on your machine, you can now clone this repo by using this command in your terminal  ``` git clone https://github.com/Arkangel17/highArc ``` 
+    or in case you don't have git installed, just click on the button above
+     ``` Clone or Download ```.
 
+2. Now go to the directory where you've cloned or saved the package, then go inside the project by using this command on the terminal:``` cd path/to/the/project ```. 
+Example: ``` cd /c/users/{user}/onedrive/..../code/highArcChallenge ```.
+
+3. Github commands to keep your local project up to date: 
+    * Stop every running instance of the project by typing ``` cntr + c ``` on the terminal (cmd).
+    * ``` git checkout master ```
+    * ``` git pull ```
+    * ``` gulp ```
+    * ``` npm start ```
+
+
+4. To run the html script, type the following in the given order in your terminal:
+    * ``` gulp ```
+    * ``` npm start ```
+    * ``` go to (http://localhost:3000/higharc) ```
+
+*** TABLE OF CONTENTS ***
 
 [polygon](src/polygon.ts)
     - The order of vertices is not always guarranteed. This class provides
