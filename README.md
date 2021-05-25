@@ -10,7 +10,9 @@
     or in case you don't have git installed, just click on the button above
      ``` Clone or Download ```.
 
-2. Now go to the directory where you've cloned or saved the package, then go inside the project by using this command on the terminal:``` cd path/to/the/project ```. Example: ``` cd /c/users/{user}/onedrive/..../code/highArcChallenge ```.
+2. Now go to the directory where you've cloned or saved the package, then go inside the project by using this command on the terminal:``` cd path/to/the/project ```. 
+
+Example: ``` cd /c/users/{user}/onedrive/..../code/highArcChallenge ```.
 
 3. Github commands to keep your local project up to date: 
     * Stop every running instance of the project by typing ``` cntr + c ``` on the terminal (cmd).
