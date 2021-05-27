@@ -34,14 +34,13 @@ class AlgorOne {
         this.dfs_color(0, 0);
         this.getCycles();
         this.parseCanvasData();
-        return this.json();
+        return this.data;
     }
-    // insert edges into an adjacency list
     getAdjList() {
         /**
-        * @desc
-        * @param object
-        * @return
+        * @desc processes the array of array edges into an adjacency list
+        * @params number[][]
+        * @return object
         */
         this.data.edges.map((e_item) => {
             this.addEdges(e_item[0], e_item[1]);
@@ -62,12 +61,10 @@ class AlgorOne {
     }
     ;
     /*
-    - use DFS, w/ graph coloring method, mark all the vertex of the diff.
+    - use DFS, w/ graph coloring method, marked all the vertices of diff.
     cycles w/ unique numbers.
     - once graph is completed, push all sim. marked numbers to an adj list.
-    - print adj list accordingly.
     */
-    //https://www.geeksforgeeks.org/print-all-the-cycles-in-an-undirected-graph/
     dfs_color(u, p) {
         if (this.color[u] == 2) {
             return;
@@ -102,7 +99,11 @@ class AlgorOne {
         }
         this.color[u] = 2;
     }
+    ;
     getCycles() {
+        /** this function is parsing through the data processed by dfs_color
+         *  based on their respective cycle, or closed path. Admittedly, this portion
+         * and the dfs_color is a bit unstable and requires more attention. */
         for (let i = 0; i < this.cycleNum; i++) {
             let temp = new Set();
             let obj = {};
@@ -116,18 +117,10 @@ class AlgorOne {
                 }
                 ;
             });
-            obj[i] = temp;
+            obj[i] = Array.from(temp);
             this.cycles[i].push(obj);
         }
         ;
-        // for(let i = 0; i < this.edgeArrLen; i++){
-        //     if( this.mark[i] != 0 ){
-        //         this.cycles[this.mark[i]].push(i);
-        //     }
-        // }
-        // for(let i = 0; i <= this.cycleNum; i++){
-        //     console.log(`Cycle number ${i}: ${this.cycles[i]} `)
-        // }
         this.data['intPolygons'] = this.cycles[0];
         this.data['numOfIntFaces'] = this.cycleNum;
     }
@@ -143,10 +136,12 @@ class AlgorOne {
         }
         this.data['canvasData'] = res;
     }
-    json() {
-        // console.log(this.data);
-        return this.data;
+    ;
+    jsonOutput() {
+        console.log(JSON.stringify(this.data));
+        // return this.data;
     }
+    ;
 }
 exports.AlgorOne = AlgorOne;
 
@@ -198,28 +193,11 @@ const edges2 = [[0, 1], [0, 3], [0, 4], [1, 2], [1, 3], [2, 3], [3, 4]];
 let polygon1 = new polygon_1.Polygon(nodes1, edges1);
 let polygon2 = new polygon_1.Polygon(nodes2, edges2);
 let hiArc = new polygon_1.Polygon(hiArcNodes, hiArcEdges);
-let algorOne = new algorOne_1.AlgorOne(polygon2.data);
-// function algorOneCalc(){
-//     algorOne.getAdjList()
-//     // res.printAdj()
-//     algorOne.dfs_color(0,0)
-//     algorOne.getCycles()
-//     algorOne.parseCanvasData()
-//     return algorOne.json()
-// }
+//** change hiArc.data btwn polygon1.data or polygon2.data */
+let algorOne = new algorOne_1.AlgorOne(hiArc.data);
 let algorOneRes = algorOne.calc();
 let faces = algorOneRes['canvasData'];
 console.log(faces);
-// let algor2 = new AlgorTwo(algorOneRes)
-// function algorTwoCalc(){
-//     algor2.facialNeighbors(0);
-//     algor2.json()
-// }
-// let algors = {
-//     'one': algorOneCalc(),
-//     'two': algorTwoCalc()
-// }
-// console.log(algors)
 if (typeof (window) == 'object') {
     let canvas = document.getElementById('canvas');
     let context = canvas.getContext('2d');
@@ -231,17 +209,16 @@ if (typeof (window) == 'object') {
         };
         for (let points of faces) {
             if (points.length > 0) {
-                context.fillStyle = randomColor(); // all css colors are accepted by this property
+                context.fillStyle = randomColor();
                 let point = points[0];
-                // let scale = 33;            
                 context.beginPath();
-                context.moveTo(point.x * scale[testCase], point.y * scale[testCase]); // point 1            
+                context.moveTo(point.x * scale[testCase], point.y * scale[testCase]);
                 for (var i = 1; i < points.length; ++i) {
                     point = points[i];
                     context.lineTo(point.x * scale[testCase], point.y * scale[testCase]);
                 }
                 ;
-                context.closePath(); // go back to point 1
+                context.closePath();
                 context.fill();
             }
         }
@@ -253,7 +230,8 @@ if (typeof (window) == 'object') {
         }
         return `rgba(${temp[0]},${temp[1]},${temp[2]})`;
     }
-    fillPolygon(faces, 'polygon2');
+    /** change the second argument to match the data on line 18: hiArc, polygon1, or polygon2 */
+    fillPolygon(faces, 'hiArc');
 }
 
 },{"./algorOne":1,"./polygon":2}]},{},[3]);

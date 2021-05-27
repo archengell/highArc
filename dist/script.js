@@ -11,28 +11,11 @@ const edges2 = [[0, 1], [0, 3], [0, 4], [1, 2], [1, 3], [2, 3], [3, 4]];
 let polygon1 = new polygon_1.Polygon(nodes1, edges1);
 let polygon2 = new polygon_1.Polygon(nodes2, edges2);
 let hiArc = new polygon_1.Polygon(hiArcNodes, hiArcEdges);
-let algorOne = new algorOne_1.AlgorOne(polygon2.data);
-// function algorOneCalc(){
-//     algorOne.getAdjList()
-//     // res.printAdj()
-//     algorOne.dfs_color(0,0)
-//     algorOne.getCycles()
-//     algorOne.parseCanvasData()
-//     return algorOne.json()
-// }
+//** change hiArc.data btwn polygon1.data or polygon2.data */
+let algorOne = new algorOne_1.AlgorOne(hiArc.data);
 let algorOneRes = algorOne.calc();
 let faces = algorOneRes['canvasData'];
 console.log(faces);
-// let algor2 = new AlgorTwo(algorOneRes)
-// function algorTwoCalc(){
-//     algor2.facialNeighbors(0);
-//     algor2.json()
-// }
-// let algors = {
-//     'one': algorOneCalc(),
-//     'two': algorTwoCalc()
-// }
-// console.log(algors)
 if (typeof (window) == 'object') {
     let canvas = document.getElementById('canvas');
     let context = canvas.getContext('2d');
@@ -44,17 +27,16 @@ if (typeof (window) == 'object') {
         };
         for (let points of faces) {
             if (points.length > 0) {
-                context.fillStyle = randomColor(); // all css colors are accepted by this property
+                context.fillStyle = randomColor();
                 let point = points[0];
-                // let scale = 33;            
                 context.beginPath();
-                context.moveTo(point.x * scale[testCase], point.y * scale[testCase]); // point 1            
+                context.moveTo(point.x * scale[testCase], point.y * scale[testCase]);
                 for (var i = 1; i < points.length; ++i) {
                     point = points[i];
                     context.lineTo(point.x * scale[testCase], point.y * scale[testCase]);
                 }
                 ;
-                context.closePath(); // go back to point 1
+                context.closePath();
                 context.fill();
             }
         }
@@ -66,5 +48,6 @@ if (typeof (window) == 'object') {
         }
         return `rgba(${temp[0]},${temp[1]},${temp[2]})`;
     }
-    fillPolygon(faces, 'polygon2');
+    /** change the second argument to match the data on line 18: hiArc, polygon1, or polygon2 */
+    fillPolygon(faces, 'hiArc');
 }

@@ -3,9 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AlgorTwo = void 0;
 class AlgorTwo {
     /**
-    * @desc updates inputs object values accoring to types
-    * @param object input:object, flat?: boolean
-    * @return object - inputs with serialize values
+    * @desc processes the output of AlgorOne and returns neighboring
+    * faces of any face.
+    * @params data -> {} from algorOne
+    * @return object {}
     */
     constructor(data) {
         this.data = data;
@@ -18,6 +19,12 @@ class AlgorTwo {
         return [...set1].filter(x => !set2.has(x));
     }
     facialNeighbors(faceId) {
+        /** this method provides the major functionality of algorithm #2
+         * 1. searches the vertex indices for each face for intersection
+         * bwtn the given face by Id.
+         * 2. if there is an intersection of 2+ vertices then it is a
+         * neighboring face and recorded.
+        */
         let myFace = this.data.intPolygons[faceId];
         let faces = this.data.intPolygons;
         let temp = [];
@@ -29,8 +36,8 @@ class AlgorTwo {
         }
         this.data['facialNeighborsById'] = temp;
     }
-    json() {
-        console.log(this.data);
+    res() {
+        // console.log(this.data);
         return this.data;
     }
 }

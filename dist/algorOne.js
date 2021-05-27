@@ -33,14 +33,13 @@ class AlgorOne {
         this.dfs_color(0, 0);
         this.getCycles();
         this.parseCanvasData();
-        return this.json();
+        return this.data;
     }
-    // insert edges into an adjacency list
     getAdjList() {
         /**
-        * @desc
-        * @param object
-        * @return
+        * @desc processes the array of array edges into an adjacency list
+        * @params number[][]
+        * @return object
         */
         this.data.edges.map((e_item) => {
             this.addEdges(e_item[0], e_item[1]);
@@ -61,12 +60,10 @@ class AlgorOne {
     }
     ;
     /*
-    - use DFS, w/ graph coloring method, mark all the vertex of the diff.
+    - use DFS, w/ graph coloring method, marked all the vertices of diff.
     cycles w/ unique numbers.
     - once graph is completed, push all sim. marked numbers to an adj list.
-    - print adj list accordingly.
     */
-    //https://www.geeksforgeeks.org/print-all-the-cycles-in-an-undirected-graph/
     dfs_color(u, p) {
         if (this.color[u] == 2) {
             return;
@@ -101,7 +98,11 @@ class AlgorOne {
         }
         this.color[u] = 2;
     }
+    ;
     getCycles() {
+        /** this function is parsing through the data processed by dfs_color
+         *  based on their respective cycle, or closed path. Admittedly, this portion
+         * and the dfs_color is a bit unstable and requires more attention. */
         for (let i = 0; i < this.cycleNum; i++) {
             let temp = new Set();
             let obj = {};
@@ -115,18 +116,10 @@ class AlgorOne {
                 }
                 ;
             });
-            obj[i] = temp;
+            obj[i] = Array.from(temp);
             this.cycles[i].push(obj);
         }
         ;
-        // for(let i = 0; i < this.edgeArrLen; i++){
-        //     if( this.mark[i] != 0 ){
-        //         this.cycles[this.mark[i]].push(i);
-        //     }
-        // }
-        // for(let i = 0; i <= this.cycleNum; i++){
-        //     console.log(`Cycle number ${i}: ${this.cycles[i]} `)
-        // }
         this.data['intPolygons'] = this.cycles[0];
         this.data['numOfIntFaces'] = this.cycleNum;
     }
@@ -142,9 +135,11 @@ class AlgorOne {
         }
         this.data['canvasData'] = res;
     }
-    json() {
-        // console.log(this.data);
-        return this.data;
+    ;
+    jsonOutput() {
+        console.log(JSON.stringify(this.data));
+        // return this.data;
     }
+    ;
 }
 exports.AlgorOne = AlgorOne;
