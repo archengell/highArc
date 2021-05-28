@@ -13,12 +13,12 @@ class AlgorTwo {
         this.data = data;
     }
     intersect(set1, set2) {
-        return [...set1].filter(x => set2.has(x));
+        return [...set1].filter(x => set2.includes(x));
     }
     diff(set1, set2) {
-        return [...set1].filter(x => !set2.has(x));
+        return [...set1].filter(x => !set2.includes(x));
     }
-    facialNeighbors(faceId) {
+    intPolygonNeighbors(faceId) {
         /** this method provides the major functionality of algorithm #2
          * 1. searches the vertex indices for each face for intersection
          * bwtn the given face by Id.
@@ -34,11 +34,13 @@ class AlgorTwo {
                 temp.push(Object.keys(faces)[idx]);
             }
         }
-        this.data['facialNeighborsById'] = temp;
+        this.data['intPolygonsNeighborsById'] = temp;
     }
     res() {
-        // console.log(this.data);
         return this.data;
+    }
+    jsonOutput() {
+        return console.log(JSON.stringify(this.data));
     }
 }
 exports.AlgorTwo = AlgorTwo;
