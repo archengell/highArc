@@ -157,15 +157,19 @@ class Polygon {
         this.data = {};
         this.nodes = nodes;
         this.nodesXY = this.nodes.map((item) => ({ x: item[0], y: item[1] }));
+        //get geometric center (mean value)
         this.center = this.nodesXY.reduce((acc, { x, y }, _, arr) => {
             acc.x += x / arr.length;
             acc.y += y / arr.length;
             return acc;
         }, { x: 0, y: 0 });
+        //get angle property ( need to convert radians to degrees )
         this.angles = this.nodesXY.map(({ x, y }) => {
             return { x, y, angle: Math.atan2(y - this.center.y, x - this.center.x) * 180 / Math.PI };
         });
+        //sort by angle relative to x-axis
         this.nodesSorted = this.angles.sort((a, b) => a.angle - b.angle);
+        //map index - or node id - and coordinates in array form to object
         this.nodesSorted.map((item, index) => {
             item['index'] = index,
                 item['arr'] = [item.x, item.y];
@@ -194,10 +198,16 @@ let polygon1 = new polygon_1.Polygon(nodes1, edges1);
 let polygon2 = new polygon_1.Polygon(nodes2, edges2);
 let hiArc = new polygon_1.Polygon(hiArcNodes, hiArcEdges);
 //** change hiArc.data btwn polygon1.data or polygon2.data */
-let algorOne = new algorOne_1.AlgorOne(hiArc.data);
-let algorOneRes = algorOne.calc();
-let faces = algorOneRes['canvasData'];
-console.log(faces);
+let algorOneHiArc = new algorOne_1.AlgorOne(hiArc.data);
+let algorOneHiArcRes = algorOneHiArc.calc();
+let hiArcfaces = algorOneHiArcRes['canvasData'];
+let algorOnePoly1 = new algorOne_1.AlgorOne(polygon1.data);
+let algorOnePoly1Res = algorOnePoly1.calc();
+let poly1faces = algorOnePoly1Res['canvasData'];
+let algorOnePoly2 = new algorOne_1.AlgorOne(polygon2.data);
+let algorOnePoly2Res = algorOnePoly2.calc();
+let poly2faces = algorOnePoly2Res['canvasData'];
+// console.log(hiArcfaces)
 if (typeof (window) == 'object') {
     let canvas = document.getElementById('canvas');
     let context = canvas.getContext('2d');
@@ -231,7 +241,12 @@ if (typeof (window) == 'object') {
         return `rgba(${temp[0]},${temp[1]},${temp[2]})`;
     }
     /** change the second argument to match the data on line 18: hiArc, polygon1, or polygon2 */
-    fillPolygon(faces, 'hiArc');
+    let btn = document.getElementById('test0');
+    btn === null || btn === void 0 ? void 0 : btn.addEventListener("click", (e) => { fillPolygon(hiArcfaces, 'hiArc'); });
+    let btn1 = document.getElementById('test1');
+    btn1 === null || btn1 === void 0 ? void 0 : btn1.addEventListener("click", (e) => { fillPolygon(poly1faces, 'polygon1'); });
+    let btn2 = document.getElementById('test2');
+    btn2 === null || btn2 === void 0 ? void 0 : btn2.addEventListener("click", (e) => { fillPolygon(poly2faces, 'polygon2'); });
 }
 
 },{"./algorOne":1,"./polygon":2}]},{},[3]);
