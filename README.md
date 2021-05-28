@@ -57,4 +57,6 @@
     - Algorithm #3 can be tested in the highArcGeoCode, but admittedly, there is a bug in the DFS approach that doesn't output the intended array of faces.  This can be illustrated in the graphic representation of polygon #1 and #2.  As a result, this file has the intended format from algorithm #1 to also illustrate its efficacy with correct data.
 
 [highArcGeoCode](src/highArcGeoCode.ts)
-    - testing sandbox for polygon and algorithms #1-3... 
+    - this is the testing sandbox to view the results for all the algorithms (#1 - #3) and their
+    respective test cases.  It's best to comment out all over algorithm sets, and test-cases, while
+    examining the results of an individual algorithm + test-case. 
