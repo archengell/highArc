@@ -29,7 +29,7 @@ export class AlgorOne {
     calc(){
         this.getAdjList()
         // res.printAdj()
-        this.dfs_color(0,0)
+        this.dfsColor(0,0)
         this.getCycles()
         this.parseCanvasData()
         return this.data
@@ -45,7 +45,7 @@ export class AlgorOne {
             this.addEdges( e_item[0], e_item[1] )
         });
         this.data['adjList'] = this.adjacencyList;
-        // console.log('adjList', this.adjacencyList)
+        console.log('adjList', this.adjacencyList)
     };
 
     addEdges( v: any, e: any ) {
@@ -59,13 +59,23 @@ export class AlgorOne {
         });
     };
 
-    /*
-    - use DFS, w/ graph coloring method, marked all the vertices of diff. 
-    cycles w/ unique numbers.
-    - once graph is completed, push all sim. marked numbers to an adj list.
+
+    // starts dfsColor(0,0)
+   dfsColor(u: any, p: any){
+    /**
+    * @desc 
+    * - using DFS, w/ graph coloring method, to mark vertices of diff
+    * cycles w/ unique numbers 
+    * - once graph is completed, push all sim. marked numbers to an adj list.
+    * - Each edge contains a pair of nodes (u , v).  
+    * - Nomenclature: 
+    * -- u -> presentNode
+    * -- v -> futureNode
+    * -- p -> pastNode
+    * @param u : number(int) 
+    * @param p : number (int)
+    * @return void
     */
-  
-    dfs_color(u: any, p: any){
         
         if ( this.color[u] == 2 ){ return };
 
@@ -92,20 +102,27 @@ export class AlgorOne {
                 'parent[u]': this.parent[u],
                 'cycleNum': this.cycleNum
             })          
-            // console.log(`u: ${u}, p: ${p}, v: ${item}, parent[u]:${this.parent[u]}, cycleNum: ${this.cycleNum}, color[u]: ${this.color[u]}`);
-            if(item == this.parent[u]){
-               continue;
-            }            
-            this.dfs_color(item, u);
+            console.log(`nodeU: ${u}, parent: ${p}, v: ${item}, parent[u]:${this.parent[u]}, cycleNum: ${this.cycleNum}, color[u]: ${this.color[u]}`);
+            // if(item == this.parent[u]){
+            //     console.log('gets here');
+            //    continue;
+            // }            
+            this.dfsColor(item, u);
         }
         this.color[u] = 2;
     };
 
 
     getCycles(){ 
-        /** this function is parsing through the data processed by dfs_color
-         *  based on their respective cycle, or closed path. Admittedly, this portion
-         * and the dfs_color is a bit unstable and requires more attention. */       
+    /**
+    * @desc 
+    * - Parses through the data processed by dfsColorbased on 
+    * their respective cycle, or closed path. Admittedly, this portion
+    * and the dfs_color is a bit unstable and requires more attention.    
+    * @params none
+    * @return void
+    */
+    
         for(let i = 0; i < this.cycleNum; i++){  
             let temp = new Set();
             let obj: any = {}  
@@ -124,7 +141,11 @@ export class AlgorOne {
     }
 
     parseCanvasData(){
-
+    /**
+    * @desc 
+    * @param none
+    * @return void
+    */
         let res = new Array;        
         for(let [idx, face] of this.cycles[0].entries()){
             let temp = new Array;

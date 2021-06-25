@@ -38,17 +38,17 @@ let hiArc = new Polygon ( hiArcNodes, hiArcEdges );
 // algor1Test1.calc()
 // algor1Test1.jsonOutput()
 
-// let algor1Test2 = new AlgorOne( polygon2.data );
-// algor1Test2.calc()
+let algor1Test2 = new AlgorOne( polygon2.data );
+algor1Test2.calc()
 // algor1Test2.jsonOutput()
 
 
 /** Test Algorithm #2 ****************************/
 
-let algor1Test0 = new AlgorOne( hiArc.data ); 
-let algor2Test0 = new AlgorTwo(algor1Test0.calc());
-algor2Test0.intPolygonNeighbors(1);
-algor2Test0.jsonOutput();
+// let algor1Test0 = new AlgorOne( hiArc.data ); 
+// let algor2Test0 = new AlgorTwo(algor1Test0.calc());
+// algor2Test0.intPolygonNeighbors(1);
+// algor2Test0.jsonOutput();
 
 // let algor1Test1 = new AlgorOne( polygon1.data );
 // let algor2Test1 = new AlgorTwo(algor1Test1.calc());
