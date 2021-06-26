@@ -10,12 +10,10 @@ class App {
     this.routes();
   }
   
-  ;
-
   routes(){
     this.express.use(express.static('higharccode'));
     this.express.get('/highArc', (req, res) => {
-        res.sendFile('views/index.html', { root : __dirname });
+        res.sendFile('/index.html', { root : __dirname });
     });
     this.express.get('/bundle.js', (req, res) => {
       res.sendFile('./bundle.js', { root : __dirname });
