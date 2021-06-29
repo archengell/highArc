@@ -30,6 +30,7 @@ export class AlgorOne {
         this.getAdjList()
         // res.printAdj()
         this.dfsColor(0,0)
+        this.customDFS()
         this.getCycles()
         this.parseCanvasData()
         return this.data
@@ -95,14 +96,15 @@ export class AlgorOne {
         this.color[u] = 1;
         
         for(let item of this.adjacencyList[u]) {  
-            this.visited.push({
-                'u': u,
-                'p': p,
-                'v': item,
-                'parent[u]': this.parent[u],
-                'cycleNum': this.cycleNum
-            })          
-            console.log(`nodeU: ${u}, parent: ${p}, v: ${item}, parent[u]:${this.parent[u]}, cycleNum: ${this.cycleNum}, color[u]: ${this.color[u]}`);
+
+            // this.visited.push({
+            //     'u': u,
+            //     'p': p,
+            //     'v': item,
+            //     'parent[u]': this.parent[u],
+            //     'cycleNum': this.cycleNum
+            // })          
+            // console.log(`nodeU: ${u}, parent: ${p}, v: ${item}, parent[u]:${this.parent[u]}, cycleNum: ${this.cycleNum}, color[u]: ${this.color[u]}`);
             // if(item == this.parent[u]){
             //     console.log('gets here');
             //    continue;
@@ -112,6 +114,31 @@ export class AlgorOne {
         this.color[u] = 2;
     };
 
+    customDFS(){
+        let adjList = this.adjacencyList;
+        let cycles = new Array;
+        let tempObj: any = {};
+        let firstNode: number;
+        let secondNode: number;
+        let thirdNode: any;
+        let temp: any;
+        let res: any;
+
+        for( let i = 0; i < this.edgeArrLen; i++){
+            firstNode = i;
+            secondNode = i + 1;
+            
+            if( adjList[secondNode] && 
+                adjList[secondNode].filter((val: number) => adjList[firstNode].includes(val)) ) {
+
+                thirdNode = adjList[i+1].filter((val: number) => adjList[i].includes(val)) 
+                tempObj[i] = [firstNode, secondNode, thirdNode[0]]                
+                cycles.push(tempObj[i].sort((a: number, b: number) => a - b))
+            }
+        }
+        res = cycles.filter(( temp = {}, (item:any) => !(temp[item]=item in temp )))
+        console.log('customDFS_cycles:', res)
+    }
 
     getCycles(){ 
     /**
