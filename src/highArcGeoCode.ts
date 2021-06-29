@@ -34,13 +34,13 @@ let hiArc = new Polygon ( hiArcNodes, hiArcEdges );
 // algor1Test0.calc()
 // algor1Test0.jsonOutput()
 
-// let algor1Test1 = new AlgorOne( polygon1.data );
-// algor1Test1.calc()
-// algor1Test1.jsonOutput()
+let algor1Test1 = new AlgorOne( polygon1.data );
+algor1Test1.calc()
+algor1Test1.jsonOutput()
 
-let algor1Test2 = new AlgorOne( polygon2.data );
-algor1Test2.calc()
-algor1Test2.jsonOutput()
+// let algor1Test2 = new AlgorOne( polygon2.data );
+// algor1Test2.calc()
+// algor1Test2.jsonOutput()
 
 
 /** Test Algorithm #2 ****************************/

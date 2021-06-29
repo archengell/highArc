@@ -26,7 +26,9 @@ let algorOnePoly2 = new AlgorOne( polygon2.data );
 let algorOnePoly2Res = algorOnePoly2.calc()
 let poly2faces = algorOnePoly2Res['canvasData']
 
-// console.log(hiArcfaces)
+console.log('hiArcfaces', hiArcfaces);
+console.log('poly1faces', poly1faces);
+console.log('poly2faces', poly2faces);
 
 if ( typeof(window) == 'object' ) {
 
