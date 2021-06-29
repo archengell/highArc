@@ -14,7 +14,7 @@ class AlgorOne {
         this.N = 30;
         this.mark = new Array(this.N).fill(0);
         this.color = new Array(this.N).fill(0);
-        this.cycles = new Array(this.N).fill([]);
+        this.cycles = new Array;
         this.parent = new Array();
         this.cycleNum = 0;
         this.visited = new Array(this.N).fill([]);
@@ -31,8 +31,9 @@ class AlgorOne {
     calc() {
         this.getAdjList();
         // res.printAdj()
-        this.dfs_color(0, 0);
-        this.getCycles();
+        this.dfsColor(0, 0);
+        this.customDFS();
+        // this.getCycles()
         this.parseCanvasData();
         return this.data;
     }
@@ -46,7 +47,7 @@ class AlgorOne {
             this.addEdges(e_item[0], e_item[1]);
         });
         this.data['adjList'] = this.adjacencyList;
-        // console.log('adjList', this.adjacencyList)
+        console.log('adjList', this.adjacencyList);
     }
     ;
     addEdges(v, e) {
@@ -60,12 +61,22 @@ class AlgorOne {
         });
     }
     ;
-    /*
-    - use DFS, w/ graph coloring method, marked all the vertices of diff.
-    cycles w/ unique numbers.
-    - once graph is completed, push all sim. marked numbers to an adj list.
-    */
-    dfs_color(u, p) {
+    // starts dfsColor(0,0)
+    dfsColor(u, p) {
+        /**
+        * @desc
+        * - using DFS, w/ graph coloring method, to mark vertices of diff
+        * cycles w/ unique numbers
+        * - once graph is completed, push all sim. marked numbers to an adj list.
+        * - Each edge contains a pair of nodes (u , v).
+        * - Nomenclature:
+        * -- u -> presentNode
+        * -- v -> futureNode
+        * -- p -> pastNode
+        * @param u : number(int)
+        * @param p : number (int)
+        * @return void
+        */
         if (this.color[u] == 2) {
             return;
         }
@@ -84,52 +95,81 @@ class AlgorOne {
         this.parent[u] = p;
         this.color[u] = 1;
         for (let item of this.adjacencyList[u]) {
-            this.visited.push({
-                'u': u,
-                'p': p,
-                'v': item,
-                'parent[u]': this.parent[u],
-                'cycleNum': this.cycleNum
-            });
-            // console.log(`u: ${u}, p: ${p}, v: ${item}, parent[u]:${this.parent[u]}, cycleNum: ${this.cycleNum}, color[u]: ${this.color[u]}`);
-            if (item == this.parent[u]) {
-                continue;
-            }
-            this.dfs_color(item, u);
+            // this.visited.push({
+            //     'u': u,
+            //     'p': p,
+            //     'v': item,
+            //     'parent[u]': this.parent[u],
+            //     'cycleNum': this.cycleNum
+            // })          
+            // console.log(`nodeU: ${u}, parent: ${p}, v: ${item}, parent[u]:${this.parent[u]}, cycleNum: ${this.cycleNum}, color[u]: ${this.color[u]}`);
+            // if(item == this.parent[u]){
+            //     console.log('gets here');
+            //    continue;
+            // }            
+            this.dfsColor(item, u);
         }
         this.color[u] = 2;
     }
     ;
-    getCycles() {
-        /** this function is parsing through the data processed by dfs_color
-         *  based on their respective cycle, or closed path. Admittedly, this portion
-         * and the dfs_color is a bit unstable and requires more attention. */
-        for (let i = 0; i < this.cycleNum; i++) {
-            let temp = new Set();
-            let obj = {};
-            this.visited.map((item) => {
-                if (item.cycleNum == i) {
-                    if (item['parent[u]'] == 0 || item.v == 0) {
-                        temp.add(0);
-                    }
-                    ;
-                    temp.add(item.u);
-                }
-                ;
-            });
-            obj[i] = Array.from(temp);
-            this.cycles[i].push(obj);
+    customDFS() {
+        let adjList = this.adjacencyList;
+        let tempArr = new Array;
+        let tempObj = {};
+        let firstNode;
+        let secondNode;
+        let thirdNode;
+        let temp;
+        let res;
+        for (let i = 0; i < this.edgeArrLen; i++) {
+            firstNode = i;
+            secondNode = i + 1;
+            if (adjList[secondNode] &&
+                adjList[secondNode].filter((val) => adjList[firstNode].includes(val))) {
+                thirdNode = adjList[i + 1].filter((val) => adjList[i].includes(val));
+                tempObj[i] = [firstNode, secondNode, thirdNode[0]];
+                tempArr.push(tempObj[i].sort((a, b) => a - b));
+            }
         }
-        ;
-        this.data['intPolygons'] = this.cycles[0];
-        this.data['numOfIntFaces'] = this.cycleNum;
+        this.cycles = tempArr.filter((temp = {}, (item) => !(temp[item] = item in temp)));
+        console.log('customDFS_cycles:', this.cycles);
+        this.data['intPolygons'] = this.cycles;
+        this.data['numOfIntFaces'] = this.cycles.length;
     }
+    // getCycles(){ 
+    // /**
+    // * @desc 
+    // * - Parses through the data processed by dfsColorbased on 
+    // * their respective cycle, or closed path. Admittedly, this portion
+    // * and the dfs_color is a bit unstable and requires more attention.    
+    // * @params none
+    // * @return void
+    // */
+    //     for(let i = 0; i < this.cycleNum; i++){  
+    //         let temp = new Set();
+    //         let obj: any = {}  
+    //         this.visited.map((item: any) =>{
+    //             if(item.cycleNum == i){
+    //                 if( item['parent[u]'] == 0 || item.v == 0) { temp.add(0) };
+    //                 temp.add(item.u);
+    //             };                
+    //         });
+    //         obj[i] = Array.from(temp);
+    //         this.cycles[i].push(obj);            
+    //     };
+    //     this.data['intPolygons'] = this.cycles[0];
+    //     this.data['numOfIntFaces'] = this.cycleNum 
+    // }
     parseCanvasData() {
+        /**
+        * @desc
+        * @param none
+        * @return void
+        */
         let res = new Array;
-        for (let [idx, face] of this.cycles[0].entries()) {
+        for (let cycle of this.cycles) {
             let temp = new Array;
-            let faceArr = Array.from(face[idx]);
-            faceArr.map((item) => {
+            cycle.map((item) => {
                 temp.push({ 'x': this.data['nodes'][item]['x'], 'y': this.data['nodes'][item]['y'] });
             });
             res.push(temp);
@@ -197,7 +237,6 @@ const edges2 = [[0, 1], [0, 3], [0, 4], [1, 2], [1, 3], [2, 3], [3, 4]];
 let polygon1 = new polygon_1.Polygon(nodes1, edges1);
 let polygon2 = new polygon_1.Polygon(nodes2, edges2);
 let hiArc = new polygon_1.Polygon(hiArcNodes, hiArcEdges);
-//** change hiArc.data btwn polygon1.data or polygon2.data */
 let algorOneHiArc = new algorOne_1.AlgorOne(hiArc.data);
 let algorOneHiArcRes = algorOneHiArc.calc();
 let hiArcfaces = algorOneHiArcRes['canvasData'];
@@ -207,7 +246,9 @@ let poly1faces = algorOnePoly1Res['canvasData'];
 let algorOnePoly2 = new algorOne_1.AlgorOne(polygon2.data);
 let algorOnePoly2Res = algorOnePoly2.calc();
 let poly2faces = algorOnePoly2Res['canvasData'];
-// console.log(hiArcfaces)
+console.log('hiArcfaces', hiArcfaces);
+console.log('poly1faces', poly1faces);
+console.log('poly2faces', poly2faces);
 if (typeof (window) == 'object') {
     let canvas = document.getElementById('canvas');
     let context = canvas.getContext('2d');
@@ -240,7 +281,6 @@ if (typeof (window) == 'object') {
         }
         return `rgba(${temp[0]},${temp[1]},${temp[2]})`;
     }
-    /** change the second argument to match the data on line 18: hiArc, polygon1, or polygon2 */
     let btn = document.getElementById('test0');
     btn === null || btn === void 0 ? void 0 : btn.addEventListener("click", (e) => { fillPolygon(hiArcfaces, 'hiArc'); });
     let btn1 = document.getElementById('test1');

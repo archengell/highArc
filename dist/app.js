@@ -9,7 +9,6 @@ class App {
         this.express = express_1.default();
         this.routes();
     }
-    ;
     routes() {
         this.express.use(express_1.default.static('higharccode'));
         this.express.get('/highArc', (req, res) => {

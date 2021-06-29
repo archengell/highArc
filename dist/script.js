@@ -11,7 +11,6 @@ const edges2 = [[0, 1], [0, 3], [0, 4], [1, 2], [1, 3], [2, 3], [3, 4]];
 let polygon1 = new polygon_1.Polygon(nodes1, edges1);
 let polygon2 = new polygon_1.Polygon(nodes2, edges2);
 let hiArc = new polygon_1.Polygon(hiArcNodes, hiArcEdges);
-//** change hiArc.data btwn polygon1.data or polygon2.data */
 let algorOneHiArc = new algorOne_1.AlgorOne(hiArc.data);
 let algorOneHiArcRes = algorOneHiArc.calc();
 let hiArcfaces = algorOneHiArcRes['canvasData'];
@@ -21,7 +20,9 @@ let poly1faces = algorOnePoly1Res['canvasData'];
 let algorOnePoly2 = new algorOne_1.AlgorOne(polygon2.data);
 let algorOnePoly2Res = algorOnePoly2.calc();
 let poly2faces = algorOnePoly2Res['canvasData'];
-// console.log(hiArcfaces)
+console.log('hiArcfaces', hiArcfaces);
+console.log('poly1faces', poly1faces);
+console.log('poly2faces', poly2faces);
 if (typeof (window) == 'object') {
     let canvas = document.getElementById('canvas');
     let context = canvas.getContext('2d');
@@ -54,7 +55,6 @@ if (typeof (window) == 'object') {
         }
         return `rgba(${temp[0]},${temp[1]},${temp[2]})`;
     }
-    /** change the second argument to match the data on line 18: hiArc, polygon1, or polygon2 */
     let btn = document.getElementById('test0');
     btn === null || btn === void 0 ? void 0 : btn.addEventListener("click", (e) => { fillPolygon(hiArcfaces, 'hiArc'); });
     let btn1 = document.getElementById('test1');
