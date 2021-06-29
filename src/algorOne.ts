@@ -9,7 +9,7 @@ export class AlgorOne {
     public N = 30;
     public mark = new Array(this.N).fill(0);
     public color = new Array(this.N).fill(0);
-    public cycles = new Array(this.N).fill([]);
+    public cycles = new Array;
     public parent = new Array();
     public edgeArrLen: number;
     public cycleNum: number = 0;
@@ -31,7 +31,7 @@ export class AlgorOne {
         // res.printAdj()
         this.dfsColor(0,0)
         this.customDFS()
-        this.getCycles()
+        // this.getCycles()
         this.parseCanvasData()
         return this.data
     }
@@ -116,7 +116,7 @@ export class AlgorOne {
 
     customDFS(){
         let adjList = this.adjacencyList;
-        let cycles = new Array;
+        let tempArr = new Array;
         let tempObj: any = {};
         let firstNode: number;
         let secondNode: number;
@@ -133,39 +133,41 @@ export class AlgorOne {
 
                 thirdNode = adjList[i+1].filter((val: number) => adjList[i].includes(val)) 
                 tempObj[i] = [firstNode, secondNode, thirdNode[0]]                
-                cycles.push(tempObj[i].sort((a: number, b: number) => a - b))
+                tempArr.push(tempObj[i].sort((a: number, b: number) => a - b))
             }
         }
-        res = cycles.filter(( temp = {}, (item:any) => !(temp[item]=item in temp )))
-        console.log('customDFS_cycles:', res)
+        this.cycles = tempArr.filter(( temp = {}, (item:any) => !(temp[item]=item in temp )))
+        console.log('customDFS_cycles:', this.cycles)
+        this.data['intPolygons'] = this.cycles;
+        this.data['numOfIntFaces'] = this.cycles.length
     }
 
-    getCycles(){ 
-    /**
-    * @desc 
-    * - Parses through the data processed by dfsColorbased on 
-    * their respective cycle, or closed path. Admittedly, this portion
-    * and the dfs_color is a bit unstable and requires more attention.    
-    * @params none
-    * @return void
-    */
+    // getCycles(){ 
+    // /**
+    // * @desc 
+    // * - Parses through the data processed by dfsColorbased on 
+    // * their respective cycle, or closed path. Admittedly, this portion
+    // * and the dfs_color is a bit unstable and requires more attention.    
+    // * @params none
+    // * @return void
+    // */
     
-        for(let i = 0; i < this.cycleNum; i++){  
-            let temp = new Set();
-            let obj: any = {}  
-            this.visited.map((item: any) =>{
-                if(item.cycleNum == i){
-                    if( item['parent[u]'] == 0 || item.v == 0) { temp.add(0) };
-                    temp.add(item.u);
-                };                
-            });
-            obj[i] = Array.from(temp);
-            this.cycles[i].push(obj);            
-        };
+    //     for(let i = 0; i < this.cycleNum; i++){  
+    //         let temp = new Set();
+    //         let obj: any = {}  
+    //         this.visited.map((item: any) =>{
+    //             if(item.cycleNum == i){
+    //                 if( item['parent[u]'] == 0 || item.v == 0) { temp.add(0) };
+    //                 temp.add(item.u);
+    //             };                
+    //         });
+    //         obj[i] = Array.from(temp);
+    //         this.cycles[i].push(obj);            
+    //     };
 
-        this.data['intPolygons'] = this.cycles[0];
-        this.data['numOfIntFaces'] = this.cycleNum 
-    }
+    //     this.data['intPolygons'] = this.cycles[0];
+    //     this.data['numOfIntFaces'] = this.cycleNum 
+    // }
 
     parseCanvasData(){
     /**
@@ -173,11 +175,10 @@ export class AlgorOne {
     * @param none
     * @return void
     */
-        let res = new Array;        
-        for(let [idx, face] of this.cycles[0].entries()){
+        let res = new Array;  
+        for(let cycle of this.cycles){
             let temp = new Array;
-            let faceArr = Array.from(face[idx])
-            faceArr.map((item: any) => {
+            cycle.map((item: any) => {
                 temp.push({'x': this.data['nodes'][item]['x'], 'y': this.data['nodes'][item]['y']})
             })
             res.push(temp)
