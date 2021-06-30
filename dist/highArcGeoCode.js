@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const polygon_1 = require("./polygon");
+const algorOne_1 = require("./algorOne");
 const hiArcNodes = [[0, 0], [2, 0], [0, 2], [2, 2]];
 const hiArcEdges = [[0, 1], [1, 2], [0, 2], [0, 3], [2, 3]];
 const nodes1 = [[10, 15], [3, 3], [23, 21], [3, 17], [16, 9], [9, 10], [13, 4], [21, 2]];
@@ -30,9 +31,9 @@ let hiArc = new polygon_1.Polygon(hiArcNodes, hiArcEdges);
 // let algor1Test1 = new AlgorOne( polygon1.data );
 // algor1Test1.calc()
 // algor1Test1.jsonOutput()
-// let algor1Test2 = new AlgorOne( polygon2.data );
-// algor1Test2.calc()
-// algor1Test2.jsonOutput()
+let algor1Test2 = new algorOne_1.AlgorOne(polygon2.data);
+algor1Test2.calc();
+algor1Test2.jsonOutput();
 /** Test Algorithm #2 ****************************/
 // let algor1Test0 = new AlgorOne( hiArc.data ); 
 // let algor2Test0 = new AlgorTwo(algor1Test0.calc());

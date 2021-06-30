@@ -40,30 +40,46 @@ export class AlgorThree {
          * the face, it is within its boundary.  If it is, 
          * the faceId, and associated points, are stored, then provided in the 
          * output.
+         * 
+         * 
          */
         for(let [idx, face] of this.data.entries()) {
             this.temp = [];
             for( let i = 0; i < face.length; i++ ) {
-                this.next = ( i + 1 ) % face.length;
+                this.next = ( i + 1 ) % face.length; 
+
+                // get line segments of each face and compare w/ given point
                 [ this.nom1, this.nom2 ] = [
                     (( face[this.next].x - face[i].x )*( point.y - face[i].y ) - 
                     ( face[this.next].y - face[i].y )*( point.x - face[i].x )),
                     (( this.xRay - point.x )*( point.y - face[i].y ) - 
                     ( point.y - point.y )*( point.x - face[i].x ))
                 ];
+
+                // calculate determinant...
                 this.det = (
                     (( face[this.next].y - face[i].y )*( this.xRay - point.x )) - 
                     (( face[this.next].x - face[i].x )*( point.y - point.y ))
                 );
+
+                //create vectors
                 this.vector1 = this.nom1 / this.det;  
                 this.vector2 = this.nom2 / this.det;
+
+                /**
+                 * if vector > 0 intersection is after second point
+                 * if vector < 0 intersection is before first point
+                 * otherwise the two lines intersect...
+                 */
                 this.cond1 = ( this.vector1 > 0 && this.vector1 < 1 );
                 this.cond2 = ( this.vector2 > 0 && this.vector2 < 1 );
                 
+                //if conditions are met push to temporary array
                 this.ptXBool = ( this.cond1 && this.cond2 );                 
                 this.temp.push( this.ptXBool );  
                           
             }
+            //place in faceContainer if there is only (1) intersection
             this.faceContainerBool = this.temp.filter( ( x: boolean ) => x == true ).length == 1;
             if ( this.faceContainerBool ){
                 this.facialContainers.push (
