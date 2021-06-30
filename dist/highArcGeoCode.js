@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const polygon_1 = require("./polygon");
-const algorOne_1 = require("./algorOne");
-const algorTwo_1 = require("./algorTwo");
 const hiArcNodes = [[0, 0], [2, 0], [0, 2], [2, 2]];
 const hiArcEdges = [[0, 1], [1, 2], [0, 2], [0, 3], [2, 3]];
 const nodes1 = [[10, 15], [3, 3], [23, 21], [3, 17], [16, 9], [9, 10], [13, 4], [21, 2]];
@@ -42,12 +40,12 @@ let hiArc = new polygon_1.Polygon(hiArcNodes, hiArcEdges);
 // algor2Test0.jsonOutput();
 // let algor1Test1 = new AlgorOne( polygon1.data );
 // let algor2Test1 = new AlgorTwo(algor1Test1.calc());
-// algor2Test1.intPolygonNeighbors(0); // 0 or 4 to illustrate functionality
+// algor2Test1.intPolygonNeighbors(0); // 0 or 4 
 // algor2Test1.jsonOutput();
-let algor1Test2 = new algorOne_1.AlgorOne(polygon2.data);
-let algor2Test2 = new algorTwo_1.AlgorTwo(algor1Test2.calc());
-algor2Test2.intPolygonNeighbors(2);
-algor2Test2.jsonOutput();
+// let algor1Test2 = new AlgorOne( polygon2.data );
+// let algor2Test2 = new AlgorTwo( algor1Test2.calc() );
+// algor2Test2.intPolygonNeighbors(2); // 0 or 2 
+// algor2Test2.jsonOutput();
 /** Test Algorithm #3  ********************/
 // let algor1Test0 = new AlgorOne( hiArc.data )
 // let algor1Test0Res = algor1Test0.calc()
@@ -58,9 +56,9 @@ algor2Test2.jsonOutput();
 // let algor1Test1Res = algor1Test1.calc()
 // let algor1Test1Faces = algor1Test1Res['canvasData']
 // let algor3Test1 = new AlgorThree(algor1Test1Faces);
-// algor3Test1.isPtInsideAFace({x:17,y:5});
+// algor3Test1.isPtInsideAFace({x:13,y:10}); // {x:17,y:5}, {x:13,y:10}, {x:16,y:14}
 // let algor1Test2 = new AlgorOne( polygon2.data );
 // let algor1Test2Res = algor1Test2.calc()
 // let algor1Test2Faces = algor1Test2Res['canvasData']
 // let algor3Test2 = new AlgorThree(algor1Test2Faces);
-// algor3Test2.isPtInsideAFace({x:15,y:15}); //unstable w/ various pts.. still debugging...
+// algor3Test2.isPtInsideAFace({x:20,y:15}); // {x:9,y:12}, {x:15,y:10}*, {x:20,y:15}

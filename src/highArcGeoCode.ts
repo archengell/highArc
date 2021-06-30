@@ -52,13 +52,13 @@ let hiArc = new Polygon ( hiArcNodes, hiArcEdges );
 
 // let algor1Test1 = new AlgorOne( polygon1.data );
 // let algor2Test1 = new AlgorTwo(algor1Test1.calc());
-// algor2Test1.intPolygonNeighbors(0); // 0 or 4 to illustrate functionality
+// algor2Test1.intPolygonNeighbors(0); // 0 or 4 
 // algor2Test1.jsonOutput();
 
-let algor1Test2 = new AlgorOne( polygon2.data );
-let algor2Test2 = new AlgorTwo( algor1Test2.calc() );
-algor2Test2.intPolygonNeighbors(2);
-algor2Test2.jsonOutput();
+// let algor1Test2 = new AlgorOne( polygon2.data );
+// let algor2Test2 = new AlgorTwo( algor1Test2.calc() );
+// algor2Test2.intPolygonNeighbors(2); // 0 or 2 
+// algor2Test2.jsonOutput();
 
 
 /** Test Algorithm #3  ********************/
@@ -73,13 +73,13 @@ algor2Test2.jsonOutput();
 // let algor1Test1Res = algor1Test1.calc()
 // let algor1Test1Faces = algor1Test1Res['canvasData']
 // let algor3Test1 = new AlgorThree(algor1Test1Faces);
-// algor3Test1.isPtInsideAFace({x:17,y:5});
+// algor3Test1.isPtInsideAFace({x:13,y:10}); // {x:17,y:5}, {x:13,y:10}, {x:16,y:14}
 
 // let algor1Test2 = new AlgorOne( polygon2.data );
 // let algor1Test2Res = algor1Test2.calc()
 // let algor1Test2Faces = algor1Test2Res['canvasData']
 // let algor3Test2 = new AlgorThree(algor1Test2Faces);
-// algor3Test2.isPtInsideAFace({x:15,y:15}); //unstable w/ various pts.. still debugging...
+// algor3Test2.isPtInsideAFace({x:20,y:15}); // {x:9,y:12}, {x:15,y:10}*, {x:20,y:15}
 
 
 

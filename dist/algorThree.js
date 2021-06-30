@@ -23,12 +23,13 @@ class AlgorThree {
     isPtInsideAFace(point) {
         /**
          * Here I created an x-axis ray that starts at the given point,
-         * and extends a large amount.  Then I loop through each face,
+         * and extends a large amount ( 1000 units ).  Then I loop through each face,
          * generating a line segment from [i] to [next], and use the modulo
-         * function to reset back to the [0] put when its the last vertex.
+         * function to reset back to the [0] when its the last vertex.
          * If there is one intersection between the xRay and a line segment of
-         * the face, it is within its bounday, oterwise it is not.  If it is,
-         * the faceId, and associated points, are stored.
+         * the face, it is within its boundary.  If it is,
+         * the faceId, and associated points, are stored, then provided in the
+         * output.
          */
         for (let [idx, face] of this.data.entries()) {
             this.temp = [];
