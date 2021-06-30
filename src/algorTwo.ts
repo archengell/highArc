@@ -18,7 +18,7 @@ export class AlgorTwo {
         return [...set1].filter( x => !set2.includes(x));
     }
 
-    intPolygonNeighbors(faceId: number | string){
+    intPolygonNeighbors(faceId: number){
         /** this method provides the major functionality of algorithm #2 
          * 1. searches the vertex indices for each face for intersection 
          * bwtn the given face by Id.  
@@ -27,12 +27,14 @@ export class AlgorTwo {
         */
         let myFace = this.data.intPolygons[faceId];
         let faces = this.data.intPolygons;
+        console.log('myFace', myFace)
+        console.log('faces', faces)
         let temp: any = [];
 
         for( let [idx,face] of faces.entries() ) {
             if( idx != faceId && 
-                this.intersect(myFace[faceId], face[idx]).length > 1 ) {
-                    temp.push(Object.keys(faces)[idx]);
+                this.intersect(myFace, face).length > 1 ) {
+                    temp.push(face);
             }
         }
         this.data['intPolygonsNeighborsById'] = temp;

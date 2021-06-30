@@ -27,11 +27,13 @@ class AlgorTwo {
         */
         let myFace = this.data.intPolygons[faceId];
         let faces = this.data.intPolygons;
+        console.log('myFace', myFace);
+        console.log('faces', faces);
         let temp = [];
         for (let [idx, face] of faces.entries()) {
             if (idx != faceId &&
-                this.intersect(myFace[faceId], face[idx]).length > 1) {
-                temp.push(Object.keys(faces)[idx]);
+                this.intersect(myFace, face).length > 1) {
+                temp.push(face);
             }
         }
         this.data['intPolygonsNeighborsById'] = temp;

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const polygon_1 = require("./polygon");
 const algorOne_1 = require("./algorOne");
+const algorTwo_1 = require("./algorTwo");
 const hiArcNodes = [[0, 0], [2, 0], [0, 2], [2, 2]];
 const hiArcEdges = [[0, 1], [1, 2], [0, 2], [0, 3], [2, 3]];
 const nodes1 = [[10, 15], [3, 3], [23, 21], [3, 17], [16, 9], [9, 10], [13, 4], [21, 2]];
@@ -28,9 +29,9 @@ let hiArc = new polygon_1.Polygon(hiArcNodes, hiArcEdges);
 // let algor1Test0 = new AlgorOne( hiArc.data );
 // algor1Test0.calc()
 // algor1Test0.jsonOutput()
-let algor1Test1 = new algorOne_1.AlgorOne(polygon1.data);
-algor1Test1.calc();
-algor1Test1.jsonOutput();
+// let algor1Test1 = new AlgorOne( polygon1.data );
+// algor1Test1.calc()
+// algor1Test1.jsonOutput()
 // let algor1Test2 = new AlgorOne( polygon2.data );
 // algor1Test2.calc()
 // algor1Test2.jsonOutput()
@@ -41,12 +42,12 @@ algor1Test1.jsonOutput();
 // algor2Test0.jsonOutput();
 // let algor1Test1 = new AlgorOne( polygon1.data );
 // let algor2Test1 = new AlgorTwo(algor1Test1.calc());
-// algor2Test1.intPolygonNeighbors(4);
+// algor2Test1.intPolygonNeighbors(0); // 0 or 4 to illustrate functionality
 // algor2Test1.jsonOutput();
-// let algor1Test2 = new AlgorOne( polygon2.data );
-// let algor2Test2 = new AlgorTwo( algor1Test2.calc() );
-// algor2Test2.intPolygonNeighbors(0);
-// algor2Test2.jsonOutput();
+let algor1Test2 = new algorOne_1.AlgorOne(polygon2.data);
+let algor2Test2 = new algorTwo_1.AlgorTwo(algor1Test2.calc());
+algor2Test2.intPolygonNeighbors(2);
+algor2Test2.jsonOutput();
 /** Test Algorithm #3  ********************/
 // let algor1Test0 = new AlgorOne( hiArc.data )
 // let algor1Test0Res = algor1Test0.calc()

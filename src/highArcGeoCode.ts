@@ -34,9 +34,9 @@ let hiArc = new Polygon ( hiArcNodes, hiArcEdges );
 // algor1Test0.calc()
 // algor1Test0.jsonOutput()
 
-let algor1Test1 = new AlgorOne( polygon1.data );
-algor1Test1.calc()
-algor1Test1.jsonOutput()
+// let algor1Test1 = new AlgorOne( polygon1.data );
+// algor1Test1.calc()
+// algor1Test1.jsonOutput()
 
 // let algor1Test2 = new AlgorOne( polygon2.data );
 // algor1Test2.calc()
@@ -52,13 +52,13 @@ algor1Test1.jsonOutput()
 
 // let algor1Test1 = new AlgorOne( polygon1.data );
 // let algor2Test1 = new AlgorTwo(algor1Test1.calc());
-// algor2Test1.intPolygonNeighbors(4);
+// algor2Test1.intPolygonNeighbors(0); // 0 or 4 to illustrate functionality
 // algor2Test1.jsonOutput();
 
-// let algor1Test2 = new AlgorOne( polygon2.data );
-// let algor2Test2 = new AlgorTwo( algor1Test2.calc() );
-// algor2Test2.intPolygonNeighbors(0);
-// algor2Test2.jsonOutput();
+let algor1Test2 = new AlgorOne( polygon2.data );
+let algor2Test2 = new AlgorTwo( algor1Test2.calc() );
+algor2Test2.intPolygonNeighbors(2);
+algor2Test2.jsonOutput();
 
 
 /** Test Algorithm #3  ********************/
