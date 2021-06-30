@@ -52,7 +52,6 @@ if ( typeof(window) == 'object' ) {
                 for (var i = 1; i < points.length; ++i) {
                     point = points[i];              
                     context.lineTo(point.x*scale[testCase], point.y*scale[testCase]);
-    
                 };            
                 context.closePath();   
                 context.fill();
